@@ -9,7 +9,13 @@ using namespace std;
 void find_minimum(vector<int>& arr) {
     auto min = min_element(arr.begin(), arr.end());
     auto min_index = find(arr.begin(), arr.end(), *min);
-    cout << "\nThe minimum is element " << *min << " under the number: " << min_index - arr.begin() + 1 << endl;
+    cout << "The minimum is element (" << *min << ") under the number (" << min_index - arr.begin() + 1 << ")" << endl;
+}
+
+void find_maximum(vector<int>& arr) {
+    auto max = max_element(arr.begin(), arr.end());
+    auto max_index = find(arr.begin(), arr.end(), *max);
+    cout << "The maximum is element (" << *max << ") under the number (" << max_index - arr.begin() + 1 << ")" << endl;
 }
 
 void find_sum_between_negatives(vector<int>& arr) {
@@ -36,6 +42,25 @@ void find_sum_between_negatives(vector<int>& arr) {
     else {
         cout << "There are less than two negative elements in the array!" << endl << endl;
     }
+}
+
+void find_sum_between_min_and_max(vector<int>& arr) {
+    double sum_between_min_max = 0.0;
+
+    auto min = min_element(arr.begin(), arr.end());
+    auto min_index = find(arr.begin(), arr.end(), *min);
+
+    auto max = max_element(arr.begin(), arr.end());
+    auto max_index = find(arr.begin(), arr.end(), *max);
+
+    if (min_index > max_index) {
+        swap(min_index, max_index);
+    }
+
+    for (auto it = next(min_index); it != max_index; it++) {
+        sum_between_min_max += *it;
+    }
+    cout << "Sum of elements between minimum and maximum: " << sum_between_min_max << endl << endl;
 }
 
 void partition_and_print(vector<int>& arr) {
@@ -65,10 +90,12 @@ int main() {
         cout << arr[i] << "\t";
     }
     arr.resize(n);
-    cout << endl;
+    cout << endl << endl;
 
     find_minimum(arr);
-    find_sum_between_negatives(arr);
+    find_maximum(arr);
+    //find_sum_between_negatives(arr);
+    find_sum_between_min_and_max(arr);
     partition_and_print(arr);
 
     return 0;
